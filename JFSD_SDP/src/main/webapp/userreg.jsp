@@ -111,11 +111,29 @@ input[type="number"]:focus {
     }
 }
 </style>
+<script>
+    function validatePassword() {
+        const password = document.getElementById("uspassword").value;
+        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
+        
+        if (!passwordPattern.test(password)) {
+            alert(
+                "Password must meet the following criteria:\n" +
+                "- At least 6 characters long\n" +
+                "- Contains at least one uppercase letter\n" +
+                "- Contains at least one number\n" +
+                "- Contains at least one special character (@, $, !, %, ?, &)"
+            );
+            return false;
+        }
+        return true;
+    }
+</script>
 </head>
 <body>
 <div class="container">
 <h3>User Registration</h3>
-<form method="post" action="insertuser">
+<form method="post" action="insertuser" onsubmit="return validatePassword()">
     <label>Enter Name</label>
     <input type="text" name="usname" required />
     <br/>
@@ -142,7 +160,7 @@ input[type="number"]:focus {
     <br/>
     
     <label>Enter Password</label>
-    <input type="password" name="uspassword" required />
+    <input type="password" id="uspassword" name="uspassword" required />
     <br/>
     
     <label>Enter Contact Number</label>
